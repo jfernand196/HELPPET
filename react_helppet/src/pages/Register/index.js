@@ -5,19 +5,19 @@ const Register = () => {
       <h1 className="title">Sign Up</h1>
       <form className="formContent">
         <label className='label'>
-          Name
+          {/* Name */}
           <input type="text" required placeholder="Name" className='input'/>
         </label>
         <label className='label'>
-          Email
+          {/* Email */}
           <input type="email" required placeholder="email" className='input'/>
         </label>
         <label className='label'>
-          Password
+          {/* Password */}
           <input type="text" required placeholder="password" className='input'/>
         </label>
         <label className='label'>
-          Confirm password
+          {/* Confirm password */}
           <input type="text" required placeholder="Confirm password" className='input'/>
         </label>
         <label>
@@ -29,7 +29,7 @@ const Register = () => {
           </select>
         </label>
         <label>
-          <button type="submit">Sign up</button>
+          <button className="button" type="submit">Sign up</button>
         </label>
       </form>
     </div>
