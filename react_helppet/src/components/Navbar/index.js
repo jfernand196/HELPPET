@@ -4,21 +4,24 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const routesNav = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Foundations", path: "/foundations" },
+    { name: "ADOPTA", path: "Adopta" },
+    { name: "QUIENES SOMOS", path: "QuienesSomos" },
+    { name: "DONATIVOS", path: "Donativos" },
+    { name: "NOTICIAS", path: "Noticias" }
   ];
 
   const routeLogin = [
-    { name: "Log in", path: "/login" },
-    { name: "Sign up", path: "/register" }
+    { name: "INGRESAR", path: "/login" },
+    { name: "REGISTRATE", path: "/register" }
     ];
 
   return (
     <div className="navbar">
       <div className="navbar_left">
-        <img src={Logo} alt="logo" className="navbar_left_logo" />
+      <Link to="/">
+        <img src={Logo} alt="logo" className="navbar_left_logo" /></Link>
         <h1 className="navbar_left_logo_text">Helppet</h1>
+        
       </div>
       <div className="navbar_center">
         <ul className="navbar_center_list">

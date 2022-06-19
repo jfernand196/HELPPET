@@ -9,10 +9,10 @@ const Footer = () => {
   return (
     <div className="footer">
     <div className="footer_terms">
-    <p>Frequent questions</p>
+    <p>Preguntas frecuentes</p>
       
       <div className="footer_terms_social_icons">
-      <p>Social networks:</p>
+      <p>Siguenos en nuestras redes sociales:</p>
         <a href="https://www.facebook.com/">
           <img
             className="footer_terms_social_icons_1"

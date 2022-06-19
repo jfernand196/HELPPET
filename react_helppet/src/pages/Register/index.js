@@ -2,8 +2,9 @@ import "./styles.sass";
 const Register = () => {
   return (
     <div className="Register-container">
-      <h1 className="title">Sign Up</h1>
-      <form className="formContent">
+      
+      <form className="Register-container-formContent">
+      <h1 className="Register-container-title">Registrate</h1>
         <label className='label'>
           {/* Name */}
           <input type="text" required placeholder="Name" className='input'/>
@@ -20,16 +21,16 @@ const Register = () => {
           {/* Confirm password */}
           <input type="text" required placeholder="Confirm password" className='input'/>
         </label>
-        <label>
+        <label className="usertipe">
           User type
-          <select>
+          <select className="usertipe_select">
             <option value="admin">Admin</option>
             <option value="user">User</option>
             <option value="foundation"> foundation </option>
           </select>
         </label>
-        <label>
-          <button className="button" type="submit">Sign up</button>
+        <label className="button">
+          <button className="button_sub" type="submit">Sign up</button>
         </label>
       </form>
     </div>
