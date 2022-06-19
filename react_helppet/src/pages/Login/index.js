@@ -1,20 +1,35 @@
 import { Link } from "react-router-dom";
-import "./styles.sass"
+import "./styles.sass";
 
 const Login = () => {
   return (
-    <div className="login-container">
-      <h1>Login</h1>
-      <form>
-        <label>
-          <p>Email</p>
-          <input type="email" required />
-        </label>
-        <label>
-            <p>Password</p>
-            <input type="text" required />
-        </label>
-      </form>
+    <div className="login">
+      <div className="login-container">
+        <h1 className="login-container-title">Login</h1>
+        <form className="login-container-form">
+          <label>
+            <input
+              className="login-container-form-input"
+              type="email"
+              required
+              placeholder="Email"
+            />
+          </label>
+          <label>
+            <input
+              className="login-container-form-input"
+              type="text"
+              required
+              placeholder="Password"
+            />
+          </label>
+          <label>
+            <button className="button_sub" type="submit">
+              Login
+            </button>
+          </label>
+        </form>
+      </div>
     </div>
   );
 };

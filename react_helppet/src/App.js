@@ -2,12 +2,14 @@ import * as React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
-import About from "./pages/About";
+import Adopta from "./pages/Adopta";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
-import Foundations from "./pages/Foundations";
+import QuienesSomos from "./pages/QuienesSomos";
 import Footer from "./components/Footer";
+import Donativos from "./pages/Donativos";
+import Noticias from "./pages/Noticias";
 
 function App() {
   return (
@@ -16,8 +18,10 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="foundations" element={<Foundations />} />
+        <Route path="Adopta" element={<Adopta />} />
+        <Route path="QuienesSomos" element={<QuienesSomos />} />
+        <Route path="Donativos" element={<Donativos />} />
+        <Route path="Noticias" element={<Noticias />} />
         <Route path="login" element={<Login />} />
         <Route path="Register" element={<Register />} />
       </Routes>
