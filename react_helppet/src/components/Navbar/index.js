@@ -20,7 +20,7 @@ console.log("userData", userData);
      console.log("Navbar", navbar);
     console.log("TypeUser", TypeUser);
     if (sessionID) {
-      fetch(`http://localhost:3001/api/users/${sessionID}`, {
+      fetch(`https://helppet-project-backend.herokuapp.com/api/users/${sessionID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -1,50 +1,27 @@
 import { useState, useContext } from "react";
+import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
-
 
 import "./styles.sass";
 const Register = () => {
   const [image, setImage] = useState(null);
   const [val, setVal] = useState(false);
-  const [user1, setUser1] = useState("");
- 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
+
   let data1 = "";
-
-  let user = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    userType: "User",
-  };
-
-  const data = {
-    name: "fer7",
-    email: "fer7@prub.com",
-    password: "123456",
-    confirmPassword: "123456",
-    userType: "foundation",
-  };
-
-  const [userData, setUserData] = useState(user);
 
   const handlerChange = (e) => {
     console.log(e.target.files[0]);
     setImage(e.target.files[0]);
   };
 
- 
-
-  let changeUserData = (event) => {
-    let newUserData = Object.assign({}, userData);
-    newUserData[event.target.name] = event.target.value;
-    setUserData(newUserData);
-    console.log(newUserData);
-  };
-
-  let createUser = async (event) => {
-    event.preventDefault();
-    // Upload image
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("file", image);
     const payload = {
@@ -53,24 +30,22 @@ const Register = () => {
     };
 
     const responseImage = await fetch(
-      "http://localhost:3001/api/upload/image",
+      "https://helppet-project-backend.herokuapp.com/api/upload/image",
       payload
     );
     let res = await responseImage.json();
-    userData.photo = res.url;
-       
-    // Create user
-    const response = await fetch("http://localhost:3001/api/users/register", {
+    console.log("response", res.url);
+
+    data.photo = res.url;
+
+    const response = await fetch("https://helppet-project-backend.herokuapp.com/api/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(data),
     });
-
     data1 = await response.json();
-    
-    const valu = data1
-      ? setVal(true)
-      : setVal(false);
+    console.log(data1);
+    const valu = data1 ? setVal(true) : setVal(false);
   };
 
   return (
@@ -78,64 +53,60 @@ const Register = () => {
       {val ? (
         <Navigate to="/login" />
       ) : (
-        <form className="Register-container-formContent">
+        <form
+          className="Register-container-formContent"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <h1 className="Register-container-title">Registrate</h1>
           <label className="label">
-            {/* Name */}
             <input
-              value={userData.name}
               type="text"
-              required
-              name="name"
+              {...register("name", { required: true })}
               placeholder="Name"
               className="input"
-              onChange={changeUserData}
             />
+            {errors.name?.type === "required" && (
+              <spam className="error">Name is required</spam>
+            )}
           </label>
           <label className="label">
-            {/* Email */}
             <input
-              value={userData.email}
               type="email"
-              required
-              name="email"
+              {...register("email", { required: true })}
               placeholder="email"
               className="input"
-              onChange={changeUserData}
             />
+            {errors.email?.type === "required" && (
+              <spam className="error">Email is required</spam>
+            )}
           </label>
           <label className="label">
-            {/* Password */}
             <input
-              value={userData.password}
               type="password"
-              required
-              name="password"
+              {...register("password", { required: true })}
               placeholder="password"
               className="input"
-              onChange={changeUserData}
             />
+            {errors.password?.type === "required" && (
+              <spam className="error">Password is required</spam>
+            )}
           </label>
           <label className="label">
-            {/* Confirm password */}
             <input
-              value={userData.confirmPassword}
               type="password"
-              name="confirmPassword"
-              required
+              {...register("confirmPassword", {
+                validate: (value) => value === watch("password"),
+              })}
               placeholder="Confirm password"
               className="input"
-              onChange={changeUserData}
             />
+            {errors.confirmPassword?.type === "validate" && (
+              <spam className="error">No match</spam>
+            )}
           </label>
           <label className="usertipe">
             User type
-            <select
-              value={userData.userType}
-              className="usertipe_select"
-              name="userType"
-              onChange={changeUserData}
-            >
+            <select {...register("userType")} className="usertipe_select">
               <option value="User">User</option>
               <option value="foundation"> foundation </option>
             </select>
@@ -143,20 +114,17 @@ const Register = () => {
           <label className="label">
             Upload your picture
             <input
-              // value=
               type="file"
-              name="file"
-              required
+              required={true}
               className="input"
               onChange={handlerChange}
             />
+            {errors.photo?.type === "required" && (
+              <spam className="error">Potho is required</spam>
+            )}
           </label>
           <label className="button">
-            <button
-              onClick={(e) => createUser(e)}
-              className="button_sub"
-              type="submit"
-            >
+            <button className="button_sub" type="submit">
               Sign up
             </button>
           </label>

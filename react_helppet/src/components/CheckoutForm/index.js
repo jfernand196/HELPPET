@@ -24,7 +24,7 @@ const CheckoutForm = () => {
       console.log(error);
     } else {
       // console.log('payment-method',paymentMethod);
-      const response = await fetch("http://localhost:3001/api/payment", {
+      const response = await fetch("https://helppet-project-backend.herokuapp.com/api/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

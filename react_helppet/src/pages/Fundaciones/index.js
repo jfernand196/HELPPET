@@ -1,155 +1,144 @@
 import "./styles.sass";
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Fundaciones = () => {
   const [image, setImage] = useState(null);
   const [val, setVal] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
 
-  const petSchema = {
-    name: "",
-    age: "",
-    breed: "",
-    color: "",
-    weight: "",
-    photo: "",
-  };
+  let res = "";
+  let data1 = "";
   const [pet, setPet] = useState(null);
 
-  const handlerChangePet = (e) => {
-    setPet({
-        ...pet,
-        [e.target.name]: e.target.value,
-        }
-    );
-    }
-    
-
   const handlerChange = (e) => {
-    // console.log(e.target.files[0]);
+    console.log(e.target.files[0]);
     setImage(e.target.files[0]);
   };
 
-  const handleUploadImage = async () => {
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    console.log(data);
     const formData = new FormData();
     formData.append("file", image);
     const payload = {
       method: "POST",
       body: formData,
     };
-    try {
-      const response = await fetch(
-        "http://localhost:3001/api/upload/image",
-        payload
-      );
-      let res = await response.json();
-      console.log("response", res.url);
-      pet.photo = res.url;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const responseImage = await fetch(
+      "https://helppet-project-backend.herokuapp.com/api/upload/image",
+      payload
+    );
+    let res = await responseImage.json();
+    console.log("response", res.url);
 
- let createPets = async (e) => {
-    e.preventDefault();
-    
-    const response = await fetch("http://localhost:3001/api/pets/create", {
-        method: "POST",
-        body: JSON.stringify(pet),
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        },
+    data.photo = res.url;
+
+    const response = await fetch("https://helppet-project-backend.herokuapp.com/api/pets/create", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
-    let res = await response.json();
-    const valu = res
-      ? setVal(true)
-      : setVal(false);
- }
 
-
+    data1 = await response.json();
+    const valu = data1 ? setVal(true) : setVal(false);
+  };
 
   return (
     <div className="fundaciones">
-    { val ? (<Navigate to="/Adopta" />) : (<>
-      <h1 className="fundaciones-title"> Agregar Mascotas</h1>
-      
-        <form className="fundaciones-form" type="">
-          <label className="label">
-            Name
-            <input
-              className="fundaciones-form-input"
-              type="text"
-              name="name"
-              onChange={handlerChangePet}
-              placeholder="Nombre"
-              required
-            />
-          </label>
-          <label className="label">
-            Edad
-            <input
-              className="fundaciones-form-input"
-              type="number"
-              name="age"
-              onChange={handlerChangePet}
-              placeholder="Edad"
-              required
-            />
-          </label>
-          <label className="label">
-            Raza
-            <input
-              className="fundaciones-form-input"
-              type="string"
-              name="breed"
-              onChange={handlerChangePet}
-              placeholder="Raza"
-              required
-            />
-          </label>
-          <label className="label">
-            Color
-            <input
-              className="fundaciones-form-input"
-              type="string"
-              name="color"
-              onChange={handlerChangePet}
-              placeholder="Color"
-              required
-            />
-          </label>
-          <label className="label">
-            Peso
-            <input
-              className="fundaciones-form-input"
-              type="number"
-              name="weight"
-              onChange={handlerChangePet}
-              placeholder="Peso"
-              required
-            />
-          </label>
-          <label className="label">
-            <input
-              className="fundaciones-form-photo"
-              type="file"
-              name="photo"
-              accept="image/*"
-              onChange={handlerChange}
-            />
-             <button type="button" onClick={handleUploadImage}>
-              Upload Image
-            </button>
-          </label>
-          <label>
-          <button type="button" onClick={(e) => createPets(e)}>
-              Crear Mascota
-            </button>
-          </label>
-        </form>
-      {/* </div> */}
-      </>)}</div>
+      {val ? (
+        <Navigate to="/Adopta" />
+      ) : (
+        <>
+          <h1 className="fundaciones-title"> Agregar Mascotas</h1>
+
+          <form className="fundaciones-form" onSubmit={handleSubmit(onSubmit)}>
+            <label className="label">
+              <input
+                className="fundaciones-form-input"
+                type="text"
+                {...register("name", { required: true })}
+                placeholder="Nombre"
+              />
+            </label>
+            {errors.name?.type === "required" && (
+              <spam className="error">Name is required</spam>
+            )}
+            <label className="label">
+              <input
+                className="fundaciones-form-input"
+                type="number"
+                {...register("age", { required: true })}
+                placeholder="Edad"
+              />
+              
+            </label>
+            {errors.age?.type === "required" && (
+                <spam className="error">Age is required</spam>
+              )}
+            <label className="label">
+              <input
+                className="fundaciones-form-input"
+                type="string"
+                {...register("breed", { required: true })}
+                placeholder="Raza"
+              />
+             
+            </label>
+            {errors.breed?.type === "required" && (
+                <spam className="error">Breed is required</spam>
+              )}
+            <label className="label">
+              <input
+                className="fundaciones-form-input"
+                type="string"
+                {...register("color", { required: true })}
+                placeholder="Color"
+              />
+             
+            </label>
+            {errors.color?.type === "required" && (
+                <spam className="error">Color is required</spam>
+              )}
+            <label className="label">
+              <input
+                className="fundaciones-form-input"
+                type="number"
+                {...register("weight", { required: true })}
+                placeholder="Peso Kg"
+              />
+            
+            </label>
+            {errors.weight?.type === "required" && (
+                <spam className="error">Weight is required</spam>
+              )}
+            <label className="label">
+              <p> Upload picture </p>
+              <input
+                className="fundaciones-form-photo"
+                type="file"
+                required={true}
+                name="photo"
+                onChange={handlerChange}
+              />
+            </label>
+
+            <label className="button">
+              <button type="submit">Crear Mascota</button>
+            </label>
+          </form>
+        </>
+      )}
+    </div>
   );
 };
 
