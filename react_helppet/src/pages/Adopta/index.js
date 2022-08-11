@@ -13,10 +13,10 @@ function Adopta() {
       photo: "http://localhost:3000/fundacion2.png",
     },
   ];
-  const [pets, setPets] = useState([]);
+  const [foundations, setFoundations] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/foundations`, {
+    fetch(`https://helppet-project-backend.herokuapp.com/api/foundations`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ function Adopta() {
         return res.json();
       })
       .then((data) => {
-        setPets(data);
+        setFoundations(data);
         // console.log("info", pets);
       })
       .catch((err) => console.log(err));
@@ -37,15 +37,18 @@ function Adopta() {
       <main className="adopta">
         <h1 className="adopta_title">Selecciona una fundacion</h1>
         <section className="adopta_fundaciones">
-          {pets.map((fundacion) => (
+          {foundations.map((fundacion) => (
             <div className="adopta_fundaciones_div">
               <h3 className="adopta_fundaciones_title">{fundacion.name}</h3>
-              <p className="adopta_fundaciones_descripcion">{}</p>
+              <p className="adopta_fundaciones_descripcion"></p>
+              <Link to={`/pets/${fundacion._id}`}>
               <img
                 className="adopta_fundaciones_img"
                 src={fundacion.photo}
                 alt={fundacion.name}
               />
+              </Link>
+             
             </div>
           ))}
         </section>

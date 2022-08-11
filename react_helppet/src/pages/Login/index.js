@@ -11,6 +11,7 @@ const Login = () => {
 
   const [form, setForm] = useState(null);
   const [redir, setRedir] = useState(false);
+  const [errorr, setErrorr] = useState(null);
 
   const handleInputChange = (e) => {
     setForm({
@@ -22,7 +23,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/api/users/login", {
+      const response = await fetch("https://helppet-project-backend.herokuapp.com/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,16 +31,17 @@ const Login = () => {
         body: JSON.stringify(form),
       });
       const token = await response.json();
-      console.log("token", token);
-      localStorage.setItem("token", JSON.stringify(token.token));
+      if(token.token !== undefined)
+      {localStorage.setItem("token", JSON.stringify(token.token));
       localStorage.setItem("user", JSON.stringify(token.name));
       localStorage.setItem("id", JSON.stringify(token.id));
       localStorage.setItem("userType", JSON.stringify(token.userType));
-      console.log("storage1", localStorage.getItem("token"));
-      console.log("storage2", localStorage.getItem("user"));
-      console.log("storage3", localStorage.getItem("id"));
       console.log(form);
       setRedir(true);
+    }
+    setErrorr(true)
+     
+      
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +54,7 @@ const Login = () => {
       ) : (
         <div className="login-container">
           <h1 className="login-container-title">Login</h1>
+          <spam>{errorr&&"User incorrect !!"}</spam>
           <form className="login-container-form" onSubmit={handleSubmit}>
             <label>
               <input

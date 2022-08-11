@@ -19,9 +19,7 @@ export const SetPhoto = createContext({});
 
 function App() {
   const [userData, setUserData] = useState(null);
-  const [PhotoLogin, setPhotoLogin] = useState('https://i.pravatar.cc/300');
-
-  
+  const [PhotoLogin, setPhotoLogin] = useState("https://i.pravatar.cc/300");
 
   return (
     <div className="App">
@@ -35,7 +33,7 @@ function App() {
             <Route path="Donativos" element={<Donativos />} />
             <Route path="Noticias" element={<Noticias />} />
             <Route path="Fundaciones" element={<Fundaciones />} />
-            <Route path="Pets" element={<Pets />} />
+            <Route path="Pets/:id" element={<Pets />} />
             <Route path="login" element={<Login />} />
             <Route path="Register" element={<Register />} />
           </Routes>
