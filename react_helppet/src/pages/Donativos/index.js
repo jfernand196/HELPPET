@@ -15,7 +15,8 @@ const Donativos = () => {
     <div className="donativos">
       <img
         className="donativos-img"
-        src="http://localhost:3000/donativos.jpg"
+        // src="http://localhost:3000/donativos.jpg"
+        src="https://cloudfront-us-east-1.images.arcpublishing.com/semana/JQOGPLWRQRFEDABUKPNXBGGVZA.jpg"
       />
       <div className="donativos_text">
         <h1> HACER UN DONATIVO A HELPPET </h1>

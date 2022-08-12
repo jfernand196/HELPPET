@@ -3,7 +3,8 @@ import "./styles.sass";
 const QuienesSomos = () => {
   return (
     <div className="quienessomos">
-    <img className="quienessomos_img" src="http://localhost:3000/quienes somos.jpg"/>
+    {/* <img className="quienessomos_img" src="http://localhost:3000/quienes somos.jpg"/> */}
+    <img className="quienessomos_img" src="http://static.pulzo.com/images/20190528120309/thumbnail-2-639x485.jpg"/>
       <p className="quienessomos_text">
       Somos una organización protectora de animales especializada, desde 1996, en la ayuda a perros y gatos maltratados y/o abandonados; una organización española totalmente independiente que no recibe subvenciones de organismos oficiales, empresas ni partidos políticos.
 Las cuotas de nuestros socios y las donaciones de nuestros simpatizantes permiten que nuestra labor sea sostenible y preservan nuestra libertad de acción.

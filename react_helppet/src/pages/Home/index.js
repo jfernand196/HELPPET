@@ -20,7 +20,8 @@ function Home() {
             <h2 className="home_noticia_title">ULTIMAS NOTICIAS</h2>
             <img
               className="home_noticia_1"
-              src="http://localhost:3000/noticia1.jpg"
+              // src="http://localhost:3000/noticia1.jpg"
+              src="https://cdn2.excelsior.com.mx/media/styles/image800x600/public/pictures/2020/02/04/2299705.jpg"
             />
           </Link>
         </div>
@@ -29,7 +30,9 @@ function Home() {
             <h2 className="home_Adopciones_title">ADOPCIONES</h2>
             <img
               className="home_Adopciones_1"
-              src="http://localhost:3000/adoptado 1.jpg"
+              // src="http://localhost:3000/adoptado 1.jpg"
+              src="https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=675,fit=cover/article/main-picture/617a613c7592b284460012.jpg"
+
             />
           </Link>
         </div>
