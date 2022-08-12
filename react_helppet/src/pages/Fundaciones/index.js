@@ -32,7 +32,7 @@ const Fundaciones = () => {
       body: formData,
     };
     const responseImage = await fetch(
-      "https://helppet-project-backend.herokuapp.com/api/upload/image",
+      "https://helppet-project-backend.herokuapp.com/upload/image",
       payload
     );
     let res = await responseImage.json();
